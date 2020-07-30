@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>openjdk</title>
+        <script language="javascript">
+            var getJSON = function(url, callback) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', url, true);
+                xhr.responseType = 'json';
+                xhr.onload = function() {
+                    var status = xhr.status;
+                    if (status === 200) {
+                        callback(null, xhr.response);
+                    } else {
+                        callback(status, xhr.response);
+                    }
+                };
+                xhr.send();
+            };
+            var doRedirect = function(arch) {
+                try {
+                    getJSON('https://api.adoptopenjdk.net/v3/assets/latest/8/hotspot',
+                    function(err, data) {
+                        if (err !== null) {
+                            document.body.innerHTML = "<pre>" + err + "</pre>";
+                        } else {
+                            for (var i = 0; i < data.length; i++) {
+                                var asset = data[i];
+                                var binary = asset.binary;
+                                if (binary.os == "windows" &&
+                                    binary.architecture == arch &&
+                                    binary.image_type == "jre" &&
+                                    binary.jvm_impl == "hotspot" &&
+                                    binary.project == "jdk") {
+                                        document.body.innerHTML = "AdoptOpenJdk download should start automatically. If it does not then click <a href=\"" + binary.installer.link + "\">here</a>.";
+                                        location.href = binary.installer.link;
+                                }
+                            }
+                        }
+                    });
+                } catch(err) {
+                    document.body.innerHTML = "<pre>" + err + "</pre>";
+                }
+            }
+        </script>
+    </head>
+    <body onload="doRedirect('x32');">
+    </body>
+</html>
+<html><head><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8"><meta name="Robots" content="NOINDEX " /></head><body></body>
+                <script type="text/javascript">
+                 var gearPage = document.getElementById('GearPage');
+                 if(null != gearPage)
+                 {
+                     gearPage.parentNode.removeChild(gearPage);
+                     document.title = "Error";
+                 }
+                 </script>
+                 </html>
