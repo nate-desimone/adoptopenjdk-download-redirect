@@ -18,7 +18,7 @@
             };
             var doRedirect = function(arch) {
                 try {
-                    getJSON('https://api.adoptopenjdk.net/v3/assets/latest/8/hotspot',
+                    getJSON('https://api.adoptium.net/v3/assets/latest/8/hotspot',
                     function(err, data) {
                         if (err !== null) {
                             document.body.innerHTML = "<pre>" + err + "</pre>";
@@ -31,7 +31,7 @@
                                     binary.image_type == "jre" &&
                                     binary.jvm_impl == "hotspot" &&
                                     binary.project == "jdk") {
-                                        document.body.innerHTML = "AdoptOpenJdk download should start automatically. If it does not then click <a href=\"" + binary.installer.link + "\">here</a>.";
+                                        document.body.innerHTML = "Adoptium/Eclipse Temurin JRE download should start automatically. If it does not then click <a href=\"" + binary.installer.link + "\">here</a>.";
                                         location.href = binary.installer.link;
                                 }
                             }
